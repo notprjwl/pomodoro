@@ -15,7 +15,7 @@ const Navbar = () => {
 
 
   return (
-    <div className='container text-text bg-componentsbg font-inconsolata max-w-[600px] mx-auto my-0 flex items-center p-3 pt-2 justify-between'>
+    <div className='container text-text bg-background font-inconsolata max-w-[600px] mx-auto my-0 flex items-center p-3 pt-2 justify-between'>
       <div>
         <h1 className='text-2xl'>Pomodoro</h1>
       </div>
