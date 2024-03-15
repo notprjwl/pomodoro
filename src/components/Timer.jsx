@@ -14,15 +14,23 @@ const Timer = () => {
     switch (selectedOption) {
       case "Pomodoro":
         setTime(pomodoro * 60);
+        setButtonText("START");
+
         break;
       case "Short Break":
         setTime(shortBreak * 60);
+        setButtonText("START");
+
         break;
       case "Long Break":
         setTime(longBreak * 60);
+        setButtonText("START");
+
         break;
       default:
         setTime(pomodoro * 60);
+        setButtonText("START");
+
         break;
     }
   }, [pomodoro, shortBreak, longBreak, selectedOption]);
@@ -58,18 +66,22 @@ const Timer = () => {
   };
 
   //progress bar
-  const progressBarWidth = 200;
-
   const progressBarFillStyle = {
-    width: `${(time / (selectedOption === "Pomodoro" ? pomodoro * 60 : selectedOption === "Short Break" ? shortBreak * 60 : longBreak * 60)) * 100}%`,
-    background: "#ffffff",
+    width: `${(1- time / (selectedOption === "Pomodoro" ? pomodoro * 60 : selectedOption === "Short Break" ? shortBreak * 60 : longBreak * 60)) * 100}%`,
+    background: "#e1e1e1",
     height: "100%",
     borderRadius: "inherit",
+    transition: 'width 1s linear'
   };
 
   return (
     <div className='text-text max-w-[500px] mx-auto p-5 font-inconsolata'>
-      <div className='container bg-componentsbg outline outline-1 outline-outline p-5 mx-auto mt-[7rem] h-[18rem] rounded-md'>
+      <div className='flex items-center justify-center mx-auto h-10 mt-[6rem]'>
+        <div className='w-[39rem] bg-outline h-[3px] rounded-full overflow-hidden'>
+          <div style={progressBarFillStyle}></div>
+        </div>
+      </div>
+      <div className='container bg-componentsbg outline outline-1 outline-outline p-5 mt-3 mx-auto h-[18rem] rounded-md'>
         <div className='flex items-center justify-center h-10 gap-2'>
           <div className='active:mt-2 transition-all duration-100 ease-in-out'>
             <button
@@ -109,12 +121,8 @@ const Timer = () => {
             {buttonText}
           </button>
         </div>
-        <div className='flex items-center justify-center mx-auto h-10'>
-          <div className="w-48 bg-gray-400 h-6 rounded-full overflow-hidden">
-            <div style={progressBarFillStyle}></div>
-          </div>
-        </div>
       </div>
+      
     </div>
   );
 };
