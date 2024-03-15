@@ -25,7 +25,6 @@ export default {
     extend: {
       colors: {
         background: '#000000',
-        componentsbg: '#0a0a0a',
         text: '#a1a1a1',
         hoverText: '#ededed',
         outline: '#252525',
