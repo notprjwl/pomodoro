@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
-// import Timer from "./Timer";
+import React, { useContext, useState } from "react";
+import Timer from "./Timer";
+import SettingsContext from "../context/SettingsContext";
 
 const SettingsModal = ({ closeModal }) => {
-  const [pomodoro, setPomodoro] = useState(null);
-  const [shortBreak, setShortBreak] = useState(null);
-  const [longBreak, setLongBreak] = useState(null);
+  const [pomodoroValue, setPomodoroValue] = useState(10);
+  const [shortBreakValue, setShortBreakValue] = useState(5);
+  const [longBreakValue, setLongBreakValue] = useState(15);
+
+  const { setPomodoro, setShortBreak, setLongBreak } = useContext(SettingsContext);
 
   const handleOkClick = () => {
-    console.log(pomodoro)
+    setPomodoro(pomodoroValue);
+    setShortBreak(shortBreakValue);
+    setLongBreak(longBreakValue);
     closeModal();
-  }
-
+  };
 
   return (
-      
     <div className='fixed container top-0 left-0 h-full bg-black bg-opacity-50 flex items-center justify-center'>
       <div className='bg-white p-3 px-0 rounded-lg sm:w-[19rem]'>
         <div className='flex justify-between items-center w-full text-center border-b pb-2'>
@@ -32,35 +35,58 @@ const SettingsModal = ({ closeModal }) => {
           </span>
           TIMER
         </div>
-        <div className='flex mx-5 justify-between'>
+        <div className='flex mx-5 justify-between gap-2'>
           <div>
-            <label>Pomodoro</label>
+            <label className='text-[0.9rem]'>Pomodoro</label>
             <div>
-              <input type='number' min={0} className='bg-gray-100 w-20 rounded-md p-1 px-2 text-black outline-0 font-sans' onChange={(e)=> {setPomodoro(e.target.value)}} />
+              <input
+                type='number'
+                min={-999}
+                max={999}
+                maxLength={3}
+                className='bg-gray-100 w-20 rounded-md p-1 px-2 text-black outline-0 font-sans'
+                onChange={(e) => {
+                  setPomodoroValue(e.target.value);
+                }}
+              />
             </div>
           </div>
           <div>
-            <label>Short Break</label>
+            <label className='text-[0.9rem]'>Short Break</label>
             <div>
-              <input type='number' min={0} className='bg-gray-100 w-20 rounded-md p-1 px-2 text-black outline-0 font-sans' onChange={(e)=> {setShortBreak(e.target.value)}}/>
+              <input
+                type='number'
+                min={0}
+                max={999}
+                className='bg-gray-100 w-20 rounded-md p-1 px-2 text-black outline-0 font-sans'
+                onChange={(e) => {
+                  setShortBreakValue(e.target.value);
+                }}
+              />
             </div>
           </div>
           <div>
-            <label>Long Break</label>
+            <label className='text-[0.9rem]'>Long Break</label>
             <div>
-              <input type='number' min={0} className='bg-gray-100 w-20 rounded-md p-1 px-2 text-black outline-0 font-sans' onChange={(e)=> {setLongBreak(e.target.value)}} />
+              <input
+                type='number'
+                min={0}
+                max={999}
+                className='bg-gray-100 w-20 rounded-md p-1 px-2 text-black outline-0 font-sans'
+                onChange={(e) => {
+                  setLongBreakValue(e.target.value);
+                }}
+              />
             </div>
           </div>
         </div>
-        <div className='float-right text-white bg-black px-5 rounded-md mt-4 mx-5 p-1 cursor-pointer' onClick={handleOkClick} >
+        <div className='float-right text-white bg-black px-5 rounded-md mt-4 mx-5 p-1 cursor-pointer' onClick={handleOkClick}>
           <button className=''>OK</button>
         </div>
       </div>
-      {/* {!closeModal && <Timer pomodoro={pomodoro} shortBreak = {shortBreak} longBreak = {longBreak}/>} */}
+      {!closeModal && <Timer pomodoro={pomodoro} shortBreak={shortBreak} longBreak={longBreak} />}
     </div>
   );
 };
-export const pomodoro = SettingsModal.pomodoro;
-export const shortBreak = SettingsModal.shortBreak;
-export const longBreak = SettingsModal.longBreak;
+
 export default SettingsModal;
