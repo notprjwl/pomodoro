@@ -3,7 +3,7 @@ import SettingsModal from "./SettingsModal";
 
 const Navbar = () => {
   const [isModal, setIsModal] = useState(false);
-
+  
   const handleSettingsClick = () => {
     setIsModal(true)
     console.log('modal is open')
