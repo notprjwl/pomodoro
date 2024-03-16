@@ -2,35 +2,39 @@ import React, { useState, useContext, useEffect } from "react";
 import SettingsContext from "../context/SettingsContext";
 const Timer = () => {
   const [buttonText, setButtonText] = useState("START");
-  const [time, setTime] = useState(0);
-  const { pomodoro, shortBreak, longBreak, selectedOption, setSelectedOption } = useContext(SettingsContext);
+  //const [time, setTime] = useState(0);
+  const { pomodoro, shortBreak, longBreak, selectedOption, setSelectedOption, time, setTime } = useContext(SettingsContext);
+  const [text, setText] = useState('Time to focus!')
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
 
-  //
+  // 
   useEffect(() => {
     switch (selectedOption) {
       case "Pomodoro":
         setTime(pomodoro * 60);
         setButtonText("START");
+        setText('Time to focus!')
 
         break;
       case "Short Break":
         setTime(shortBreak * 60);
         setButtonText("START");
+        setText('Time for a break!')
 
         break;
       case "Long Break":
         setTime(longBreak * 60);
         setButtonText("START");
+        setText('Time for a break!')
 
         break;
       default:
         setTime(pomodoro * 60);
         setButtonText("START");
-
+        setText('Time to focus!')
         break;
     }
   }, [pomodoro, shortBreak, longBreak, selectedOption]);
@@ -73,6 +77,11 @@ const Timer = () => {
     borderRadius: "inherit",
     transition: 'width 1s linear'
   };
+
+  //displaying time in the title
+  useEffect(() => {
+    document.title = `${formatTime(time)} - ${text}`; // Update the title with the current time
+  }, [time]);
 
   return (
     <div className='text-text max-w-[500px] mx-auto p-5 font-inconsolata'>
@@ -121,6 +130,9 @@ const Timer = () => {
             {buttonText}
           </button>
         </div>
+      </div>
+      <div className="text-center mt-7">
+        {text}
       </div>
       
     </div>
